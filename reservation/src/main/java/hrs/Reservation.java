@@ -29,9 +29,12 @@ public class Reservation {
 
         hrs.external.Payment payment = new hrs.external.Payment();
         // mappings goes here
+        payment.setPrice(reserved.getPrice());
+        payment.setReservationId(reserved.getId());
+        payment.setStatus("Payment Requested");
+
         ReservationApplication.applicationContext.getBean(hrs.external.PaymentService.class)
             .payment(payment);
-
 
     }
 

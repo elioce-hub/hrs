@@ -11,7 +11,7 @@ spring:
         - id: reservation
           uri: http://localhost:8081
           predicates:
-            - Path=/reservations/** /reservationinquiries/**
+            - Path=/reservations/**,/reservationinquiries/**
         - id: Reservationmanagement
           uri: http://localhost:8082
           predicates:
@@ -42,7 +42,7 @@ spring:
         - id: reservation
           uri: http://reservation:8080
           predicates:
-            - Path=/reservations/** /reservationinquiries/**
+            - Path=/reservations/**,/reservationinquiries/**
         - id: Reservationmanagement
           uri: http://Reservationmanagement:8080
           predicates:

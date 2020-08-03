@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PolicyHandler{
+
+    @Autowired
+    HotelReservationManagementRepository hotelReservationManagementRepository;
+
     @StreamListener(KafkaProcessor.INPUT)
     public void onStringEventListener(@Payload String eventString){
 
@@ -20,6 +24,13 @@ public class PolicyHandler{
 
         if(paymentApproved.isMe()){
             System.out.println("##### listener Reservationreceive : " + paymentApproved.toJson());
+
+            HotelReservationManagement reservationManagement = new HotelReservationManagement();
+
+            reservationManagement.setReservationId(paymentApproved.getReservationId());
+            reservationManagement.setStatus("Reservation Confirmed");
+
+            hotelReservationManagementRepository.save(reservationManagement);
         }
     }
     @StreamListener(KafkaProcessor.INPUT)
@@ -27,7 +38,13 @@ public class PolicyHandler{
 
         if(paymentCanceled.isMe()){
             System.out.println("##### listener Reservationreceive : " + paymentCanceled.toJson());
+
+            HotelReservationManagement reservationManagement = new HotelReservationManagement();
+
+            reservationManagement.setReservationId(paymentCanceled.getReservationId());
+            reservationManagement.setStatus("Reservation Canceled");
+
+            hotelReservationManagementRepository.save(reservationManagement);
         }
     }
-
 }

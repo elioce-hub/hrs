@@ -2,6 +2,9 @@ package hrs;
 
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+
 import java.util.List;
 
 @Entity
@@ -19,9 +22,21 @@ public class Payment {
     public void onPostPersist(){
         PaymentApproved paymentApproved = new PaymentApproved();
         BeanUtils.copyProperties(this, paymentApproved);
-        paymentApproved.publishAfterCommit();
+//        paymentApproved.publishAfterCommit();
+
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void beforeCommit(boolean readOnly) {
+                paymentApproved.publish();
+            }
+        });
 
 
+//        try {
+//            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @PostUpdate
@@ -29,8 +44,6 @@ public class Payment {
         PaymentCanceled paymentCanceled = new PaymentCanceled();
         BeanUtils.copyProperties(this, paymentCanceled);
         paymentCanceled.publishAfterCommit();
-
-
     }
 
 

@@ -19,8 +19,6 @@ public class HotelReservationManagement {
         ReservationConfirmed reservationConfirmed = new ReservationConfirmed();
         BeanUtils.copyProperties(this, reservationConfirmed);
         reservationConfirmed.publishAfterCommit();
-
-
     }
 
     @PostUpdate
@@ -28,8 +26,6 @@ public class HotelReservationManagement {
         ReservationConfirmedCanceled reservationConfirmedCanceled = new ReservationConfirmedCanceled();
         BeanUtils.copyProperties(this, reservationConfirmedCanceled);
         reservationConfirmedCanceled.publishAfterCommit();
-
-
     }
 
 
