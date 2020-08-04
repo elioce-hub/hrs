@@ -44,9 +44,7 @@ public class Reservation {
         BeanUtils.copyProperties(this, reservationCanceled);
         reservationCanceled.publishAfterCommit();
 
-
     }
-
 
     public Long getId() {
         return id;

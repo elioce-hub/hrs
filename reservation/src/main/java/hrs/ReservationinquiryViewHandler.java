@@ -24,13 +24,13 @@ public class ReservationinquiryViewHandler {
                 // view 객체 생성
                 Reservationinquiry reservationinquiry = new Reservationinquiry();
                 // view 객체에 이벤트의 Value 를 set 함
-                reservationinquiry.setId(reserved.getId());
                 reservationinquiry.setCustomerName(reserved.getCustomerName());
                 reservationinquiry.setNights(reserved.getNights());
                 reservationinquiry.setCheckinDate(reserved.getCheckinDate());
                 reservationinquiry.setStatus(reserved.getStatus());
                 reservationinquiry.setPrice(reserved.getPrice());
                 reservationinquiry.setHotelId(reserved.getHotelId());
+                reservationinquiry.setId(reserved.getId());
                 // view 레파지 토리에 save
                 reservationinquiryRepository.save(reservationinquiry);
             }

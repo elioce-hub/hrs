@@ -22,14 +22,14 @@ public class Payment {
     public void onPostPersist(){
         PaymentApproved paymentApproved = new PaymentApproved();
         BeanUtils.copyProperties(this, paymentApproved);
-//        paymentApproved.publishAfterCommit();
+        paymentApproved.publishAfterCommit();
 
-        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
-            @Override
-            public void beforeCommit(boolean readOnly) {
-                paymentApproved.publish();
-            }
-        });
+//        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+//            @Override
+//            public void beforeCommit(boolean readOnly) {
+//                paymentApproved.publish();
+//            }
+//        });
 
 
 //        try {
